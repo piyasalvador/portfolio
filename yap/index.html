@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Digital Artist — Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@400;500;600&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0b0b0b;
+    color: #f2f2f2;
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   CUSTOM CURSOR
+===================================================== */
+
+.cursor {
+    width: 12px;
+    height: 12px;
+
+    position: fixed;
+
+    background: white;
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    transform: translate(-50%, -50%);
+
+    mix-blend-mode: difference;
+
+    transition:
+        width .25s ease,
+        height .25s ease;
+}
+
+.cursor.active {
+    width: 55px;
+    height: 55px;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 25px 5%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 1000;
+
+    backdrop-filter: blur(15px);
+
+    background: rgba(11,11,11,.7);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+.logo {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-links a {
+    font-size: 13px;
+    opacity: .6;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    min-height: 100vh;
+
+    padding: 120px 8% 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    right: -180px;
+    top: 80px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.12),
+            transparent 65%
+        );
+
+    animation:
+        floating 8s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-40px);
+    }
+}
+
+.hero-small {
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    opacity: .5;
+
+    margin-bottom: 25px;
+
+    animation:
+        fadeUp 1s ease forwards;
+}
+
+.hero h1 {
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(70px, 12vw, 180px);
+
+    font-weight: 400;
+
+    line-height: .85;
+
+    letter-spacing: -7px;
+
+    animation:
+        fadeUp 1.2s ease forwards;
+}
+
+.hero h1 em {
+    font-weight: 400;
+}
+
+.hero-description {
+    max-width: 480px;
+
+    margin-top: 45px;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #aaa;
+
+    animation:
+        fadeUp 1.4s ease forwards;
+}
+
+.scroll-indicator {
+    position: absolute;
+
+    bottom: 35px;
+    left: 8%;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    opacity: .5;
+
+    animation:
+        bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   GENERAL SECTIONS
+===================================================== */
+
+section {
+    padding: 140px 8%;
+}
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    margin-bottom: 70px;
+}
+
+.section-number {
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    opacity: .4;
+}
+
+.section-title {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(45px, 7vw, 100px);
+
+    font-weight: 400;
+
+    line-height: .9;
+}
+
+
+/* =====================================================
+   WORK GRID
+===================================================== */
+
+.work-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(12, 1fr);
+
+    gap: 25px;
+}
+
+.project {
+
+    position: relative;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+.project:nth-child(1) {
+    grid-column: span 7;
+}
+
+.project:nth-child(2) {
+
+    grid-column: span 5;
+
+    margin-top: 100px;
+}
+
+.project:nth-child(3) {
+    grid-column: span 5;
+}
+
+.project:nth-child(4) {
+
+    grid-column: span 7;
+
+    margin-top: 100px;
+}
+
+
+/* =====================================================
+   PROJECT PREVIEW
+===================================================== */
+
+.project-preview {
+
+    width: 100%;
+
+    height: 500px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #151515;
+}
+
+.project:nth-child(2)
+.project-preview,
+
+.project:nth-child(3)
+.project-preview {
+
+    height: 600px;
+}
+
+.project-preview img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    filter:
+        grayscale(100%);
+
+    transition:
+        transform .8s
+        cubic-bezier(.2,.8,.2,1),
+
+        filter .8s ease;
+}
+
+.project:hover
+.project-preview img {
+
+    transform:
+        scale(1.07);
+
+    filter:
+        grayscale(0%);
+}
+
+
+/* =====================================================
+   IMAGE COUNT
+===================================================== */
+
+.image-icon {
+
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    padding:
+        8px 12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.4);
+
+    background:
+        rgba(0,0,0,.5);
+
+    backdrop-filter:
+        blur(10px);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   PROJECT OVERLAY
+===================================================== */
+
+.project-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: end;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            transparent 40%,
+            rgba(0,0,0,.9)
+        );
+
+    opacity: 0;
+
+    transition: .5s;
+}
+
+.project:hover
+.project-overlay {
+    opacity: 1;
+}
+
+.project-name {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        32px;
+}
+
+.project-category {
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        2px;
+
+    text-transform:
+        uppercase;
+
+    opacity:
+        .6;
+
+    margin-top:
+        8px;
+}
+
+.open-project {
+
+    margin-top:
+        20px;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        2px;
+
+    opacity:
+        .6;
+
+    transition:
+        .3s;
+}
+
+.project:hover
+.open-project {
+
+    opacity:
+        1;
+
+    transform:
+        translateX(8px);
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        100px;
+
+    align-items:
+        center;
+}
+
+.about-image {
+
+    width:
+        100%;
+
+    height:
+        650px;
+
+    object-fit:
+        cover;
+
+    filter:
+        grayscale(100%);
+}
+
+.about-text h2 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(40px, 5vw, 75px);
+
+    font-weight:
+        400;
+
+    line-height:
+        1;
+
+    margin-bottom:
+        35px;
+}
+
+.about-text p {
+
+    color:
+        #999;
+
+    line-height:
+        1.8;
+
+    max-width:
+        500px;
+}
+
+.skills {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        10px;
+
+    margin-top:
+        35px;
+}
+
+.skill {
+
+    border:
+        1px solid #333;
+
+    padding:
+        10px 17px;
+
+    border-radius:
+        50px;
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        1px;
+}
+
+
+/* =====================================================
+   PROCESS
+===================================================== */
+
+.process {
+
+    border-top:
+        1px solid #222;
+}
+
+.process-list {
+
+    margin-top:
+        60px;
+}
+
+.process-item {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        100px 1fr 1fr;
+
+    padding:
+        30px 0;
+
+    border-bottom:
+        1px solid #222;
+
+    transition:
+        padding .4s;
+}
+
+.process-item:hover {
+    padding-left:
+        20px;
+}
+
+.process-number {
+    opacity:
+        .4;
+}
+
+.process-title {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        35px;
+}
+
+.process-description {
+
+    color:
+        #777;
+
+    line-height:
+        1.6;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact {
+
+    min-height:
+        80vh;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+}
+
+.contact h2 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(65px, 11vw, 160px);
+
+    font-weight:
+        400;
+
+    line-height:
+        .85;
+}
+
+.contact h2 em {
+    display:
+        block;
+}
+
+.contact-email {
+
+    margin-top:
+        60px;
+
+    font-size:
+        18px;
+
+    border-bottom:
+        1px solid #777;
+
+    padding-bottom:
+        10px;
+
+    width:
+        fit-content;
+
+    transition:
+        .3s;
+}
+
+.contact-email:hover {
+    border-color:
+        white;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    border-top:
+        1px solid #222;
+
+    padding:
+        30px 8%;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    font-size:
+        11px;
+
+    color:
+        #666;
+}
+
+
+/* =====================================================
+   SCROLLABLE FULLSCREEN GALLERY
+===================================================== */
+
+.image-viewer {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    background:
+        rgba(0,0,0,.97);
+
+    backdrop-filter:
+        blur(15px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity .35s ease,
+        visibility .35s ease;
+}
+
+.image-viewer.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =====================================================
+   GALLERY SCROLL
+===================================================== */
+
+.gallery-scroll {
+
+    width: 100%;
+
+    height: 100vh;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding:
+        100px 5% 80px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 35px;
+
+    scroll-behavior: smooth;
+
+    -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior:
+        contain;
+}
+
+
+/* =====================================================
+   GALLERY IMAGES
+===================================================== */
+
+.gallery-scroll img {
+
+    display: block;
+
+    width: auto;
+
+    max-width: 99vw;
+
+    height: auto;
+
+    object-fit: contain;
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.45);
+
+    animation:
+        galleryImageIn .5s ease;
+}
+
+@keyframes galleryImageIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+.viewer-close {
+
+    position: fixed;
+
+    top: 25px;
+
+    right: 30px;
+
+    width: 50px;
+
+    height: 50px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.3);
+
+    border-radius: 50%;
+
+    background:
+        rgba(0,0,0,.75);
+
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    z-index: 5100;
+
+    transition: .3s;
+}
+
+.viewer-close:hover {
+
+    background: white;
+
+    color: black;
+
+    transform:
+        rotate(90deg);
+}
+
+
+/* =====================================================
+   VIEWER TITLE
+===================================================== */
+
+.viewer-title {
+
+    position: fixed;
+
+    top: 35px;
+
+    left: 35px;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: #888;
+
+    z-index: 5100;
+}
+
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+.gallery-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gallery-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(255,255,255,.25);
+
+    border-radius:
+        10px;
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb:hover {
+
+    background:
+        rgba(255,255,255,.5);
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+.reveal {
+
+    opacity:
+        0;
+
+    transform:
+        translateY(50px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.visible {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 768px) {
+
+    nav {
+        padding:
+            20px;
+    }
+
+    .nav-links {
+        gap:
+            15px;
+    }
+
+    .nav-links a {
+        font-size:
+            11px;
+    }
+
+    .hero {
+        padding:
+            120px 6% 70px;
+    }
+
+    .hero h1 {
+        letter-spacing:
+            -4px;
+    }
+
+    section {
+        padding:
+            90px 6%;
+    }
+
+    .section-header {
+        margin-bottom:
+            40px;
+    }
+
+    .work-grid {
+        display:
+            block;
+    }
+
+    .project {
+        margin:
+            0 0 30px !important;
+    }
+
+    .project-preview {
+        height:
+            450px !important;
+    }
+
+    .project-overlay {
+        opacity:
+            1;
+    }
+
+    .about {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            50px;
+    }
+
+    .about-image {
+        height:
+            500px;
+    }
+
+    .process-item {
+
+        grid-template-columns:
+            50px 1fr;
+
+        gap:
+            15px;
+    }
+
+    .process-description {
+
+        grid-column:
+            2;
+    }
+
+    footer {
+
+        padding:
+            25px 6%;
+
+        flex-direction:
+            column;
+
+        gap:
+            10px;
+    }
+
+    .cursor {
+        display:
+            none;
+    }
+
+
+    /* MOBILE GALLERY */
+
+    .gallery-scroll {
+
+        padding:
+            85px 12px 40px;
+
+        gap:
+            20px;
+    }
+
+    .gallery-scroll img {
+
+        width:
+            100%;
+
+        max-width:
+            100%;
+
+        height:
+            auto;
+    }
+
+    .viewer-close {
+
+        top:
+            15px;
+
+        right:
+            15px;
+
+        width:
+            45px;
+
+        height:
+            45px;
+    }
+
+    .viewer-title {
+
+        top:
+            28px;
+
+        left:
+            20px;
+
+        font-size:
+            9px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     CUSTOM CURSOR
+===================================================== -->
+
+<div class="cursor"></div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+        ARI / DIGITAL ART
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#work">Work</a>
+
+        <a href="#about">About</a>
+
+        <a href="#process">Process</a>
+
+        <a href="#contact">Contact</a>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<header class="hero">
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-small">
+        Digital Artist / Visual Storyteller
+    </div>
+
+    <h1>
+        Art<br>
+        <em>without</em><br>
+        limits.
+    </h1>
+
+    <p class="hero-description">
+
+        Creating surreal worlds, expressive
+        characters and visual experiences
+        through digital art, illustration
+        and experimental design.
+
+    </p>
+
+    <div class="scroll-indicator">
+        SCROLL ↓
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     WORK
+===================================================== -->
+
+<section id="work">
+
+    <div class="section-header">
+
+        <div class="section-number">
+            01 — SELECTED WORK
+        </div>
+
+        <div>
+            2024 — 2026
+        </div>
+
+    </div>
+
+
+    <div class="work-grid">
+
+
+        <!-- =================================================
+             PROJECT 1
+        ================================================== -->
+
+        <div
+            class="project image-project reveal"
+
+            data-title="Test"
+
+            data-images="
+                images/p1cover.png,
+                images/p1-page1.png,
+                images/p1-page2.png,
+                images/p1-page3.png
+            "
+        >
+
+            <div class="project-preview">
+
+                <img
+                    src="images/p1cover.png"
+                    alt="Test digital artwork"
+                >
+
+                <div class="image-icon">
+                    4 IMAGES
+                </div>
+
+            </div>
+
+
+            <div class="project-overlay">
+
+                <div>
+
+                    <div class="project-name">
+                        Test
+                    </div>
+
+                    <div class="project-category">
+                        Digital Illustration
+                    </div>
+
+                </div>
+
+                <div class="open-project">
+                    VIEW PROJECT →
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PROJECT 2
+
+             To add another project, copy this block
+             and change the image filenames.
+        ================================================== -->
+
+        <div
+            class="project image-project reveal"
+
+            data-title="Inner Worlds"
+
+            data-images="
+                images/inner-1.jpg,
+                images/inner-2.jpg,
+                images/inner-3.jpg
+            "
+        >
+
+            <div class="project-preview">
+
+                <img
+                    src="images/inner-1.jpg"
+                    alt="Inner Worlds digital artwork"
+                >
+
+                <div class="image-icon">
+                    3 IMAGES
+                </div>
+
+            </div>
+
+
+            <div class="project-overlay">
+
+                <div>
+
+                    <div class="project-name">
+                        Inner Worlds
+                    </div>
+
+                    <div class="project-category">
+                        Concept Art
+                    </div>
+
+                </div>
+
+                <div class="open-project">
+                    VIEW PROJECT →
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about">
+
+    <div class="section-header">
+
+        <div class="section-number">
+            02 — ABOUT
+        </div>
+
+    </div>
+
+
+    <div class="about">
+
+        <img
+            class="about-image reveal"
+            src="images/artist.jpg"
+            alt="Digital artist"
+        >
+
+
+        <div class="about-text reveal">
+
+            <h2>
+                Making the
+                imaginary
+                visible.
+            </h2>
+
+
+            <p>
+
+                I'm a digital artist fascinated by
+                surrealism, fantasy and the relationship
+                between emotion and visual storytelling.
+
+            </p>
+
+            <br>
+
+            <p>
+
+                My work combines illustration,
+                digital painting, concept development
+                and experimental visual techniques
+                to create artwork that feels both
+                familiar and otherworldly.
+
+            </p>
+
+
+            <div class="skills">
+
+                <span class="skill">
+                    DIGITAL PAINTING
+                </span>
+
+                <span class="skill">
+                    ILLUSTRATION
+                </span>
+
+                <span class="skill">
+                    CONCEPT ART
+                </span>
+
+                <span class="skill">
+                    CHARACTER DESIGN
+                </span>
+
+                <span class="skill">
+                    VISUAL DESIGN
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROCESS
+===================================================== -->
+
+<section
+    id="process"
+    class="process"
+>
+
+    <div class="section-header">
+
+        <div class="section-number">
+            03 — PROCESS
+        </div>
+
+    </div>
+
+
+    <div class="process-list">
+
+
+        <div class="process-item reveal">
+
+            <div class="process-number">
+                01
+            </div>
+
+            <div class="process-title">
+                Idea
+            </div>
+
+            <div class="process-description">
+
+                Every artwork starts with
+                a feeling, question or strange
+                little idea.
+
+            </div>
+
+        </div>
+
+
+        <div class="process-item reveal">
+
+            <div class="process-number">
+                02
+            </div>
+
+            <div class="process-title">
+                Explore
+            </div>
+
+            <div class="process-description">
+
+                Sketches, references, colors
+                and compositions are explored
+                until the visual language begins
+                to take shape.
+
+            </div>
+
+        </div>
+
+
+        <div class="process-item reveal">
+
+            <div class="process-number">
+                03
+            </div>
+
+            <div class="process-title">
+                Create
+            </div>
+
+            <div class="process-description">
+
+                The final artwork is developed
+                through layers of painting,
+                lighting, texture and detail.
+
+            </div>
+
+        </div>
+
+
+        <div class="process-item reveal">
+
+            <div class="process-number">
+                04
+            </div>
+
+            <div class="process-title">
+                Refine
+            </div>
+
+            <div class="process-description">
+
+                Final colors, composition and
+                small details bring the artwork
+                together.
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+    id="contact"
+    class="contact"
+>
+
+    <div class="section-number">
+        04 — CONTACT
+    </div>
+
+
+    <h2>
+
+        Let's create
+        <em>something.</em>
+
+    </h2>
+
+
+    <a class="contact-email" href="mailto:piyasalvador@gmail.com">piyasalvador@gmail.com →</a>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <span>
+        © 2026 DIGITAL ARTIST
+    </span>
+
+    <span>
+        INSTAGRAM · BEHANCE · ARTSTATION
+    </span>
+
+</footer>
+
+
+<!-- =====================================================
+     FULLSCREEN SCROLLABLE GALLERY
+===================================================== -->
+
+<div
+    class="image-viewer"
+    id="imageViewer"
+>
+
+    <div class="viewer-title">
+        DIGITAL ART / VIEWING
+    </div>
+
+
+    <button
+        class="viewer-close"
+        id="viewerClose"
+        aria-label="Close gallery"
+    >
+        ×
+    </button>
+
+
+    <div
+        class="gallery-scroll"
+        id="galleryScroll"
+    >
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   CUSTOM CURSOR
+===================================================== */
+
+const cursor =
+    document.querySelector(".cursor");
+
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        cursor.style.left =
+            event.clientX + "px";
+
+        cursor.style.top =
+            event.clientY + "px";
+
+    }
+);
+
+
+document
+.querySelectorAll(
+    "a, .project, button"
+)
+.forEach(
+    function(element) {
+
+        element.addEventListener(
+            "mouseenter",
+            function() {
+
+                cursor.classList.add(
+                    "active"
+                );
+
+            }
+        );
+
+
+        element.addEventListener(
+            "mouseleave",
+            function() {
+
+                cursor.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   VIEWER ELEMENTS
+===================================================== */
+
+const imageViewer =
+    document.getElementById(
+        "imageViewer"
+    );
+
+const galleryScroll =
+    document.getElementById(
+        "galleryScroll"
+    );
+
+const viewerClose =
+    document.getElementById(
+        "viewerClose"
+    );
+
+
+/* =====================================================
+   OPEN GALLERY
+===================================================== */
+
+function openGallery(
+    images,
+    title
+) {
+
+    galleryScroll.innerHTML = "";
+
+
+    images.forEach(
+        function(imagePath, index) {
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                imagePath;
+
+
+            image.alt =
+                title +
+                " — Artwork " +
+                (index + 1);
+
+
+            image.draggable =
+                false;
+
+
+            image.addEventListener(
+                "dragstart",
+                function(event) {
+
+                    event.preventDefault();
+
+                }
+            );
+
+
+            galleryScroll.appendChild(
+                image
+            );
+
+        }
+    );
+
+
+    /*
+       Always start at the first artwork.
+    */
+
+    galleryScroll.scrollTop = 0;
+
+
+    imageViewer.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE GALLERY
+===================================================== */
+
+function closeGallery() {
+
+    imageViewer.classList.remove(
+        "active"
+    );
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+/* =====================================================
+   PROJECT CLICK
+===================================================== */
+
+document
+.querySelectorAll(
+    ".image-project"
+)
+.forEach(
+    function(project) {
+
+        project.addEventListener(
+            "click",
+            function() {
+
+                const imageString =
+                    project.dataset.images;
+
+
+                const title =
+                    project.dataset.title;
+
+
+                /*
+                   Turn:
+
+                   image1.jpg,
+                   image2.jpg,
+                   image3.jpg
+
+                   into an array.
+                */
+
+                const images =
+                    imageString
+                    .split(",")
+                    .map(
+                        function(image) {
+
+                            return image.trim();
+
+                        }
+                    )
+                    .filter(
+                        function(image) {
+
+                            return image !== "";
+
+                        }
+                    );
+
+
+                openGallery(
+                    images,
+                    title
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+viewerClose.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        closeGallery();
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            imageViewer.classList.contains(
+                "active"
+            )
+        ) {
+
+            closeGallery();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLICK DARK BACKGROUND TO CLOSE
+===================================================== */
+
+imageViewer.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === imageViewer
+        ) {
+
+            closeGallery();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const revealObserver =
+    new IntersectionObserver(
+        function(entries) {
+
+            entries.forEach(
+                function(entry) {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target
+                            .classList
+                            .add(
+                                "visible"
+                            );
+
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold:
+                .15
+        }
+    );
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(
+    function(element) {
+
+        revealObserver.observe(
+            element
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PREVENT IMAGE DRAGGING
+===================================================== */
+
+document
+.querySelectorAll("img")
+.forEach(
+    function(image) {
+
+        image.addEventListener(
+            "dragstart",
+            function(event) {
+
+                event.preventDefault();
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
